@@ -1,15 +1,19 @@
 import React from "react";
 
-const Message = () => {
+const Message = ({ message }) => {
+  const authUser = JSON.parse(localStorage.getItem("messenger"));
+  const itsMe = message.senderId === authUser.user._id;
+
+  const chatName = itsMe ? " chat-end" : "chat-start";
+  const chatColor = itsMe ? "bg-blue-500" : "";
   return (
-    <div className="p-4">
-      <div className="chat chat-start">
-        <div className="chat-bubble chat-bubble-primary">
-          What kind of nonsense is this
+    <div>
+      <div className="p-4">
+        <div className={`chat ${chatName}`}>
+          <div className={`chat-bubble text-white ${chatColor}`}>
+            {message.message}
+          </div>
         </div>
-      </div>
-      <div className="chat chat-end">
-        <div className="chat-bubble chat-bubble-info">Calm down, Anakin.</div>
       </div>
     </div>
   );
